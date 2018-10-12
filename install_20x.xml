@@ -1,0 +1,297 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+<id>Dougiefresh:DDBM</id>
+<name>Drag & Drop Board Management</name>
+<version>1.0</version>
+
+<!-------------------------------------------------------------------------->
+<!-- Source modifications                                                 -->
+<!-------------------------------------------------------------------------->
+<file name="$sourcedir/ManageBoards.php">
+	<operation>
+		<search position="before"><![CDATA[global $txt, $context, $cat_tree, $boards, $boardList, $scripturl, $sourcedir, $txt]]></search>
+		<add><![CDATA[, $boardurl]]></add>
+	</operation>
+	<operation>
+		<search position="after"><![CDATA[loadTemplate('ManageBoards');
+
+	require_once($sourcedir . '/Subs-Boards.php');]]></search>
+		<add><![CDATA[$context['html_headers'] .= '
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<link rel="stylesheet" href="' . $boardurl . '/Themes/default/css/drag_drop_boards.css" id="admin.css" />
+	<script src="' . $boardurl . '/Themes/default/scripts/drag_drop_boards.js"></script>';
+
+	]]></add>
+	</operation>
+</file>
+<file name="$sourcedir/Xml.php">
+	<operation>
+		<search position="after"><![CDATA['jumpto' => array(]]></search>
+		<add><![CDATA['boardorder' => array(
+			'function' => 'BoardOrder',
+		),
+		]]></add>
+	</operation>
+	<operation>
+		<search position="end" />
+		<add><![CDATA[
+/**
+ * Reorders the boards in response to an ajax sortable request
+ */
+function BoardOrder()
+{
+	global $context, $txt, $boards, $cat_tree, $sourcedir;
+
+	// Start off clean
+	$context['xml_data'] = array();
+	$errors = array();
+	$order = array();
+	$board_tree = array();
+	$board_moved = null;
+
+	// Chances are we will need these
+	loadLanguage('Errors');
+	loadLanguage('ManageBoards');
+	require_once($sourcedir . '/Subs-Boards.php');
+
+	// No question that we are doing some board reordering
+	if (isset($_POST['order']) && $_POST['order'] === 'reorder' && isset($_POST['moved']))
+	{
+		$list_order = 0;
+		$moved_key = 0;
+
+		// What board was drag and dropped?
+		list (, $board_moved,) = explode(',', $_POST['moved']);
+		$board_moved = (int) $board_moved;
+
+		// The board ids arrive in 1-n view order ...
+		foreach ($_POST['cbp'] as $id)
+		{
+			list ($category, $board, $childof) = explode(',', $id);
+
+			if ($board == -1)
+				continue;
+
+			$board_tree[] = array(
+				'category' => $category,
+				'parent' => $childof,
+				'order' => $list_order,
+				'id' => $board,
+			);
+
+			// Keep track of where the moved board is in the sort stack
+			if ($board == $board_moved)
+				$moved_key = $list_order;
+
+			$list_order++;
+		}
+
+		// Look behind for the previous board and previous sibling
+		$board_previous = (isset($board_tree[$moved_key - 1]) && $board_tree[$moved_key]['category'] == $board_tree[$moved_key - 1]['category']) ? $board_tree[$moved_key - 1] : null;
+		$board_previous_sibling = null;
+		for ($i = $moved_key - 1; $i >= 0; $i--)
+		{
+			// Sibling must have the same category and same parent tree
+			if ($board_tree[$moved_key]['category'] == $board_tree[$i]['category'])
+			{
+				if ($board_tree[$moved_key]['parent'] == $board_tree[$i]['parent'])
+				{
+					$board_previous_sibling = $board_tree[$i];
+					break;
+				}
+				// Don't go to another parent tree
+				elseif ($board_tree[$i]['parent'] == 0)
+					break;
+			}
+			// Don't go to another category
+			else
+				break;
+		}
+
+		// Retrieve the current saved state, returned in global $boards
+		getBoardTree();
+
+		$boardOptions = array();
+		$board_current = $boards[$board_moved];
+		$board_new = $board_tree[$moved_key];
+
+		// Dropped on a sibling node, move after that
+		if (isset($board_previous_sibling))
+		{
+			$boardOptions = array(
+				'move_to' => 'after',
+				'target_board' => $board_previous_sibling['id'],
+			);
+			$order[] = array('value' => $board_current['name'] . ' ' . $txt['mboards_order_after'] . ' ' . $boards[$board_previous_sibling['id']]['name']);
+		}
+		// No sibling, maybe a new child
+		elseif (isset($board_previous))
+		{
+			$boardOptions = array(
+				'move_to' => 'child',
+				'target_board' => $board_previous['id'],
+				'move_first_child' => true,
+			);
+			$order[] = array('value' => $board_current['name'] . ' ' . $txt['mboards_order_child_of'] . ' ' . $boards[$board_previous['id']]['name']);
+		}
+		// Nothing before this board at all, move to the top of the cat
+		elseif (!isset($board_previous))
+		{
+			$boardOptions = array(
+				'move_to' => 'top',
+				'target_category' => $board_new['category'],
+			);
+			$order[] = array('value' => $board_current['name'] . ' ' . $txt['mboards_order_in_category'] . ' ' . $cat_tree[$board_new['category']]['node']['name']);
+		}
+
+		// If we have figured out what to do
+		if (!empty($boardOptions))
+			modifyBoard($board_moved, $boardOptions);
+		else
+			$errors[] = array('value' => $txt['mboards_board_error']);
+	}
+
+	// Return the response
+	$context['sub_template'] = 'generic_xml';
+	$context['xml_data'] = array(
+		'orders' => array(
+			'identifier' => 'order',
+			'children' => $order,
+		),
+		'errors' => array(
+			'identifier' => 'error',
+			'children' => $errors,
+		),
+	);
+}
+
+]]></add>
+	</operation>
+</file>
+
+<!-------------------------------------------------------------------------->
+<!-- Template modifications                                               -->
+<!-------------------------------------------------------------------------->
+<file name="$themedir/ManageBoards.template.php">
+	<operation>
+		<search position="replace"><![CDATA[// Loop through every category, listing the boards in each as we go.
+	foreach ($context['categories'] as $category)
+	{
+		]]></search>
+		<add><![CDATA[// Loop through every category, listing the boards in each as we go.
+	$sortables = array();
+	foreach ($context['categories'] as $category)
+	{
+		$sortables[] = '#category_' . $category['id'];
+
+		]]></add>
+	</operation>
+	<operation>
+		<search position="replace"><![CDATA[<div class="content">
+					<ul id="category_', $category['id'], '" style="float:left; width:100%;">';]]></search>
+		<add><![CDATA[<div id="category_', $category['id'], '" class="content">
+					<ul class="nolist">';]]></add>
+	</operation>
+	<operation>
+		<search position="replace"><![CDATA[
+		// List through every board in the category, printing its name and link to modify the board.
+		foreach ($category['boards'] as $board)
+		{
+			$alternate = !$alternate;]]></search>
+		<add><![CDATA[		$first = true;
+		$depth = 0;
+
+		// If there is nothing in a category, add a drop zone
+		if (empty($category['boards']))
+			echo '
+						<li id="cbp_' . $category['id'] . ',-1,"></li>';
+
+		// List through every board in the category, printing its name and link to modify the board.
+		foreach ($category['boards'] as $board)
+		{
+			// Going in a level deeper (sub-board)
+			if ($board['child_level'] > $depth)
+				echo '
+							<ul class="nolist">';
+			// Backing up a level to a childs parent
+			elseif ($board['child_level'] < $depth)
+			{
+				for ($i = $board['child_level']; $i < $depth; $i++)
+					echo
+					'
+								</li>
+							</ul>';
+			}
+			// Base node parent but not the first one
+			elseif ($board['child_level'] == 0 && !$first)
+				echo '
+						</li>';
+]]></add>
+	</operation>
+	<operation>
+		<search position="replace"><![CDATA[<li', !empty($modSettings['recycle_board']) && !empty($modSettings['recycle_enable']) && $modSettings['recycle_board'] == $board['id'] ? ' id="recycle_board"' : ' ', ' class="windowbg', $alternate ? '' : '2', '" style="padding-' . ($context['right_to_left'] ? 'right' : 'left') . ': ', 5 + 30 * $board['child_level'], 'px;', $board['move'] ? 'color: red;' : '', '"><span class="floatleft"><a href="', $scripturl, '?board=', $board['id'], '">', $board['name'], '</a>', !empty($modSettings['recycle_board']) && !empty($modSettings['recycle_enable']) && $modSettings['recycle_board'] == $board['id'] ? '<a href="' . $scripturl . '?action=admin;area=manageboards;sa=settings"> <img src="' . $settings['images_url'] . '/post/recycled.gif" alt="' . $txt['recycle_board'] . '" /></a></span>' : '</span>', ']]></search>
+		<add><![CDATA[<li id="cbp_' . $category['id'] . ',' . $board['id'] . '" ', (!empty($modSettings['recycle_board']) && !empty($modSettings['recycle_enable']) && $modSettings['recycle_board'] == $board['id'] ? ' recycle_board' : ''), '" style="', $board['move'] ? ';color: red;' : '', '">
+							<span class="floatleft"><a href="', $scripturl, '?board=', $board['id'], '">', $board['name'], '</a>', !empty($modSettings['recycle_board']) && !empty($modSettings['recycle_enable']) && $modSettings['recycle_board'] == $board['id'] ? '&nbsp;<a href="' . $scripturl . '?action=admin;area=manageboards;sa=settings"><img src="' . $settings['images_url'] . '/post/recycled.gif" alt="' . $txt['recycle_board'] . '" /></a></span>' : '</span>', ']]></add>
+	</operation>
+	<operation>
+		<search position="replace"><![CDATA[<span class="modify_boards"><a href="', $scripturl, '?action=admin;area=manageboards;sa=board;boardid=', $board['id'], '">', $txt['mboards_modify'], '</a></span></span><br style="clear: right;" />
+						</li>';]]></search>
+		<add><![CDATA[<span class="modify_boards"><a href="', $scripturl, '?action=admin;area=manageboards;sa=board;boardid=', $board['id'], '">', $txt['mboards_modify'], '</a></span></span>', empty($board['move_links']) ? '<br style="clear: right;" />' : '';]]></add>
+	</operation>
+	<operation>
+		<search position="after"><![CDATA[		}
+
+		// Button to add a new board.]]></search>
+		<add><![CDATA[
+			$alternate = !$alternate;
+			$depth = $board['child_level'];
+			$first = false;
+		}
+
+		// All done, backing up to a base node
+		if (!$first)
+		{
+			if ($depth > 0)
+			{
+				for ($i = $depth; $i > 0; $i--)
+					echo
+					'
+								</li>
+							</ul>';
+			}
+
+			echo '
+						</li>';
+]]></add>
+	</operation>
+	<operation>
+		<search position="after"><![CDATA[';
+}
+
+// Template for editing/adding a category on the forum.]]></search>
+		<add><![CDATA[
+	<script>
+		// Start by creating proper ids and ul childs for use
+		setBoardIds();
+
+		// Set up our sortable call
+		$().smfSortable({
+			sa: "boardorder",
+			error: "' . $txt['admin_order_error'] . '",
+			title: "' . $txt['admin_order_title'] . '",
+			session: {session_var: "' . $context['session_var'] . '", session_id: "' . $context['session_id'] . '"},
+			tag: "' . implode(' ul,', $sortables) . ' ul",
+			connect: ".nolist",
+			containment: "document",
+			href: "?action=admin;area=manageboards",
+			placeholder: "ui-state-highlight",
+			preprocess: "setBoardIds",
+			axis: "",
+			setorder: "inorder"
+		});
+	</script>]]></add>
+	</operation>
+</file>
+</modification>
