@@ -1,0 +1,16 @@
+v1.1 - February 24th, 2016
+o Official version submitted to Simple Machines Customization site.
+
+v1.0 Beta 3 - February 23rd, 2016
+o Modified CSS so that buttons for each board stay lined up.
+o Modified CSS so that buttons stay about the same distance apart.
+o Changed minimum height for [b]ul[/b] elements to 2 pixels so dragging to subboard works.
+
+v1.0 Beta 2 - February 20th, 2016
+o Changed minimum height for [b]ul[/b] elements to 0 pixels.
+o Modified CSS so that buttons for each board line up properly.
+o Changed size of AJAX text so that it would be smaller than default SMF drop-down bar.
+o Added permission check so that only authorized people can make these changes.
+
+v1.0 Beta 1 - February 18th, 2016
+o Initial public release via [url=http://www.simplemachines.org/community/index.php?topic=543486.0]SMF Coding Discussion board[/url]
