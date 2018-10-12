@@ -3,7 +3,7 @@
 <modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
 <id>Dougiefresh:DDBM</id>
 <name>Drag & Drop Board Management</name>
-<version>1.4</version>
+<version>1.5</version>
 
 <!-------------------------------------------------------------------------->
 <!-- Source modifications                                                 -->
@@ -21,9 +21,23 @@
 	loadJavascriptFile('https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js', array('external' => true), 'jquery');
 	loadJavascriptFile('https://code.jquery.com/ui/1.11.4/jquery-ui.js', array('external' => true), 'jquery-ui');
 	loadJavascriptFile('drag_drop_boards.js', array('default_theme' => true));
-	loadCSSFile('drag_drop_boards.css', array('force_current' => false, 'validate' => true));
+	loadCSSFile('drag_drop_boards_21x.css', array('force_current' => false, 'validate' => true));
 
 	]]></add>
+	</operation>
+</file>
+<file name="$sourcedir/Xml.php">
+	<operation>
+		<search position="replace"><![CDATA[loadTemplate('Xml');]]></search>
+		<add><![CDATA[global $sourcedir;
+
+	loadTemplate('Xml');
+	require_once($sourcedir . '/Subs-DragDropBoards.php');]]></add>
+	</operation>
+	<operation>
+		<search position="after"><![CDATA['jumpto' =>  'GetJumpTo',]]></search>
+		<add><![CDATA['boardorder' => 'DragDrop_XML',
+		]]></add>
 	</operation>
 </file>
 
@@ -45,7 +59,7 @@
 		]]></add>
 	</operation>
 	<operation>
-		<search position="replace"><![CDATA[	<ul id="category_', $category['id'], '" class="reset nolist">';]]></search>
+		<search position="replace"><![CDATA[	<ul id="category_', $category['id'], '" class="nolist">';]]></search>
 		<add><![CDATA[<div id="category_', $category['id'], '" class="content">
 				<ul class="reset nolist">';]]></add>
 	</operation>
@@ -125,7 +139,8 @@
 		<search position="after"><![CDATA[';
 }
 
-// Template for editing/adding a category on the forum.]]></search>
+/**
+ * Tempalte for editing/adding a category on the forum.]]></search>
 		<add><![CDATA[</div>
 	<script>
 		// Start by creating proper ids and ul childs for use

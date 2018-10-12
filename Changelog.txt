@@ -1,3 +1,10 @@
+v1.5 - July 7th, 2017
+o Added support for SMF 2.1 Beta 3.
+o Removed support for SMF 2.1 Beta 2.
+o SMF 2.1: Fixed bug where source code was copied and deleted during uninstall.
+o SMF 2.1: Fixed undefined function error in [b]Sources/Xml.php[/b].
+o Fixed language XML operations for both SMF 2.0.x and 2.1 compatibility.
+
 v1.4 - April 19th, 2017
 o Fixed undefined function error found by [url=https://www.simplemachines.org/community/index.php?action=profile;u=112942]GL700Wing[/url].
 

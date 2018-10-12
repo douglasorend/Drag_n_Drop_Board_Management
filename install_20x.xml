@@ -3,7 +3,7 @@
 <modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
 <id>Dougiefresh:DDBM</id>
 <name>Drag & Drop Board Management</name>
-<version>1.4</version>
+<version>1.5</version>
 
 <!-------------------------------------------------------------------------->
 <!-- Source modifications                                                 -->
@@ -20,7 +20,7 @@
 		<add><![CDATA[$context['html_headers'] .= '
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-	<link rel="stylesheet" href="' . $boardurl . '/Themes/default/css/drag_drop_boards.css" id="admin.css" />
+	<link rel="stylesheet" href="' . $boardurl . '/Themes/default/css/drag_drop_boards_20x.css" id="admin.css" />
 	<script src="' . $boardurl . '/Themes/default/scripts/drag_drop_boards.js"></script>';
 
 	]]></add>

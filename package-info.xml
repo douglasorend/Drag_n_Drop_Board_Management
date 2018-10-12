@@ -5,7 +5,7 @@
 	<id>Dougiefresh:DDBM</id>
 	<name>Drag & Drop Board Management</name>
 	<type>modification</type>
-	<version>1.4</version>
+	<version>1.5</version>
 
 	<install for="2.0 - 2.0.99">
 		<code>add_remove_hooks.php</code>
@@ -13,15 +13,15 @@
 		<modification>install_20x.xml</modification>
 		<modification>language_english.xml</modification>
 		<require-file name="Subs-DragDropBoards.php" destination="$sourcedir" />
-		<require-file name="drag_drop_boards.css" destination="$themedir/css" />
+		<require-file name="drag_drop_boards_20x.css" destination="$themedir/css" />
 		<require-file name="drag_drop_boards.js" destination="$themedir/scripts" />
 	</install>
 	<uninstall for="2.0 - 2.0.99">
 		<code>add_remove_hooks.php</code>
 		<modification reverse="true">install_20x.xml</modification>
 		<modification reverse="true">language_english.xml</modification>
-		<remove-file name="$sources/Subs-DragDropBoards.php" />
-		<remove-file name="$themedir/css/drag_drop_boards.css" />
+		<remove-file name="$sourcedir/Subs-DragDropBoards.php" />
+		<remove-file name="$themedir/css/drag_drop_boards_20x.css" />
 		<remove-file name="$themedir/scripts/drag_drop_boards.js" />
 	</uninstall>
 
@@ -31,16 +31,15 @@
 		<modification>install_21x.xml</modification>
 		<modification>language_english.xml</modification>
 		<require-file name="Subs-DragDropBoards.php" destination="$sourcedir" />
-		<require-file name="drag_drop_boards.css" destination="$themedir/css" />
+		<require-file name="drag_drop_boards_21x.css" destination="$themedir/css" />
 		<require-file name="drag_drop_boards.js" destination="$themedir/scripts" />
 	</install>
 	<uninstall for="2.1 Beta 2>
 		<code>add_remove_hooks.php</code>
 		<modification reverse="true">install_21x.xml</modification>
 		<modification reverse="true">language_english.xml</modification>
-		<require-file name="Subs-DragDropBoards.php" destination="$sourcedir" />
-		<remove-file name="$sources/Subs-DragDropBoards.php" />
-		<remove-file name="$themedir/css/drag_drop_boards.css" />
+		<remove-file name="$sourcedir/Subs-DragDropBoards.php" />
+		<remove-file name="$themedir/css/drag_drop_boards_21x.css" />
 		<remove-file name="$themedir/scripts/drag_drop_boards.js" />
 	</uninstall>
 </package-info>

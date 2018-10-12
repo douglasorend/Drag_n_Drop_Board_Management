@@ -1,5 +1,5 @@
 [hr]
-[center][color=red][size=16pt][b]DRAG AND DROP BOARD MANAGEMENT v1.4[/b][/size][/color]
+[center][color=red][size=16pt][b]DRAG AND DROP BOARD MANAGEMENT v1.5[/b][/size][/color]
 [url=http://www.simplemachines.org/community/index.php?action=profile;u=253913][b]By Dougiefresh[/b][/url] -> [url=http://custom.simplemachines.org/mods/index.php?mod=4083]Link to Mod[/url]
 [/center]
 [hr]
@@ -14,7 +14,7 @@ o Discussion: [url=http://www.simplemachines.org/community/index.php?topic=51005
 o Development: [url=http://www.simplemachines.org/community/index.php?topic=543486.0]Need help with new Drag and Drop Board Management mod....[/url]
 
 [color=blue][b][size=12pt][u]Compatibility Notes[/u][/size][/b][/color]
-This mod was tested on SMF 2.0.11 and SMF 2.1 Beta 2, but should work on SMF 2.0 and up.  SMF 1.x is not and will not be supported.
+This mod was tested on SMF 2.0.11 and SMF 2.1 Beta 3, but should work on SMF 2.0 and up.  SMF 2.1 Beta 2 and SMF 1.x is not and will not be supported.
 
 [color=blue][b][size=12pt][u]Changelog[/u][/size][/b][/color]
 The changelog has been removed and can be seen at [url=http://www.xptsp.com/board/index.php?topic=657.msg966#msg966]XPtsp.com[/url].

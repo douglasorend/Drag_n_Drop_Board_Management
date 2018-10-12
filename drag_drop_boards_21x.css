@@ -41,7 +41,6 @@
 #manage_boards ul:nth-child(n+2) li .floatright
 {
 	overflow: none;
-	margin: 0 -3px;
 }
 #manage_boards li img
 {
