@@ -1,3 +1,6 @@
+v1.4 - April 19th, 2017
+o Fixed undefined function error found by [url=https://www.simplemachines.org/community/index.php?action=profile;u=112942]GL700Wing[/url].
+
 v1.3 - March 23rd, 2016
 o Moved [b]BoardOrder[/b] function from [b]Sources/XML.php[/b] into [b]Subs-DragDropBoards.php[/b].
 o [b]SMF 2.1:[/b] Converted all [b]XML.php[/b] operations into proper hooks.
