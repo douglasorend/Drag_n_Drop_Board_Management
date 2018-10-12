@@ -1,3 +1,7 @@
+v1.3 - March 23rd, 2016
+o Moved [b]BoardOrder[/b] function from [b]Sources/XML.php[/b] into [b]Subs-DragDropBoards.php[/b].
+o [b]SMF 2.1:[/b] Converted all [b]XML.php[/b] operations into proper hooks.
+
 v1.2 - March 7th, 2016
 o Added support for SMF 2.1 Beta 2.  No functionality change for SMF 2.0.x branch.
 
