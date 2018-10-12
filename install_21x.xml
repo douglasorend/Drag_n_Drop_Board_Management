@@ -10,29 +10,27 @@
 <!-------------------------------------------------------------------------->
 <file name="$sourcedir/ManageBoards.php">
 	<operation>
-		<search position="before"><![CDATA[global $txt, $context, $cat_tree, $boards, $boardList, $scripturl, $sourcedir, $txt]]></search>
+		<search position="before"><![CDATA[global $txt, $context, $cat_tree, $boards, $boardList, $scripturl, $sourcedir, $smcFunc]]></search>
 		<add><![CDATA[, $boardurl]]></add>
 	</operation>
 	<operation>
 		<search position="after"><![CDATA[loadTemplate('ManageBoards');
 
 	require_once($sourcedir . '/Subs-Boards.php');]]></search>
-		<add><![CDATA[$context['html_headers'] .= '
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-	<link rel="stylesheet" href="' . $boardurl . '/Themes/default/css/drag_drop_boards.css" id="admin.css" />
-	<script src="' . $boardurl . '/Themes/default/scripts/drag_drop_boards.js"></script>';
+		<add><![CDATA[// Load some custom stuff for drag-and-drop stuff:
+	loadJavascriptFile('https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js', array('external' => true), 'jquery');
+	loadJavascriptFile('https://code.jquery.com/ui/1.11.4/jquery-ui.js', array('external' => true), 'jquery-ui');
+	loadJavascriptFile('drag_drop_boards.js', array('default_theme' => true));
+	loadCSSFile('drag_drop_boards.css', array('force_current' => false, 'validate' => true));
 
 	]]></add>
 	</operation>
 </file>
 <file name="$sourcedir/Xml.php">
 	<operation>
-		<search position="after"><![CDATA['jumpto' => array(]]></search>
-		<add><![CDATA['boardorder' => array(
-			'function' => 'BoardOrder',
-		),
-		]]></add>
+		<search position="before"><![CDATA['previews' => 'RetrievePreview',]]></search>
+		<add><![CDATA[
+		'boardorder' => 'BoardOrder',]]></add>
 	</operation>
 	<operation>
 		<search position="end" />
@@ -192,18 +190,17 @@ function BoardOrder()
 		]]></add>
 	</operation>
 	<operation>
-		<search position="replace"><![CDATA[<div class="content">
-					<ul id="category_', $category['id'], '" style="float:left; width:100%;">';]]></search>
+		<search position="replace"><![CDATA[	<ul id="category_', $category['id'], '" class="reset nolist">';]]></search>
 		<add><![CDATA[<div id="category_', $category['id'], '" class="content">
-					<ul class="nolist">';]]></add>
+				<ul class="reset nolist">';]]></add>
 	</operation>
 	<operation>
 		<search position="replace"><![CDATA[
 		// List through every board in the category, printing its name and link to modify the board.
 		foreach ($category['boards'] as $board)
 		{
-			$alternate = !$alternate;]]></search>
-		<add><![CDATA[		$first = true;
+]]></search>
+		<add><![CDATA[$first = true;
 		$depth = 0;
 
 		// If there is nothing in a category, add a drop zone
@@ -234,25 +231,21 @@ function BoardOrder()
 ]]></add>
 	</operation>
 	<operation>
-		<search position="replace"><![CDATA[<li', !empty($modSettings['recycle_board']) && !empty($modSettings['recycle_enable']) && $modSettings['recycle_board'] == $board['id'] ? ' id="recycle_board"' : ' ', ' class="windowbg', $alternate ? '' : '2', '" style="padding-' . ($context['right_to_left'] ? 'right' : 'left') . ': ', 5 + 30 * $board['child_level'], 'px;', $board['move'] ? 'color: red;' : '', '"><span class="floatleft"><a href="', $scripturl, '?board=', $board['id'], '">', $board['name'], '</a>', !empty($modSettings['recycle_board']) && !empty($modSettings['recycle_enable']) && $modSettings['recycle_board'] == $board['id'] ? '<a href="' . $scripturl . '?action=admin;area=manageboards;sa=settings"> <img src="' . $settings['images_url'] . '/post/recycled.gif" alt="' . $txt['recycle_board'] . '" /></a></span>' : '</span>', ']]></search>
-		<add><![CDATA[<li id="cbp_' . $category['id'] . ',' . $board['id'] . '" ', (!empty($modSettings['recycle_board']) && !empty($modSettings['recycle_enable']) && $modSettings['recycle_board'] == $board['id'] ? ' recycle_board' : ''), '" style="', $board['move'] ? ';color: red;' : '', '">
-							<span class="floatleft"><a href="', $scripturl, '?board=', $board['id'], '">', $board['name'], '</a>', !empty($modSettings['recycle_board']) && !empty($modSettings['recycle_enable']) && $modSettings['recycle_board'] == $board['id'] ? '&nbsp;<a href="' . $scripturl . '?action=admin;area=manageboards;sa=settings"><img src="' . $settings['images_url'] . '/post/recycled.gif" alt="' . $txt['recycle_board'] . '" /></a></span>' : '</span>', ']]></add>
+		<search position="replace"><![CDATA[<li', !empty($modSettings['recycle_board']) && !empty($modSettings['recycle_enable']) && $modSettings['recycle_board'] == $board['id'] ? ' id="recycle_board"' : ' ', ' class="windowbg', $board['is_redirect'] ? ' redirect_board' : '', '" style="padding-' . ($context['right_to_left'] ? 'right' : 'left') . ': ', 5 + 30 * $board['child_level'], 'px;">]]></search>
+		<add><![CDATA[<li id="cbp_' . $category['id'] . ',' . $board['id'] . '" ', !empty($modSettings['recycle_board']) && !empty($modSettings['recycle_enable']) && $modSettings['recycle_board'] == $board['id'] ? ' id="recycle_board"' : ' ', ' class="windowbg', $board['is_redirect'] ? ' redirect_board' : '', '">]]></add>
 	</operation>
 	<operation>
-		<search position="replace"><![CDATA[<span class="modify_boards"><a href="', $scripturl, '?action=admin;area=manageboards;sa=board;boardid=', $board['id'], '">', $txt['mboards_modify'], '</a></span></span><br style="clear: right;" />
-						</li>';]]></search>
-		<add><![CDATA[<span class="modify_boards"><a href="', $scripturl, '?action=admin;area=manageboards;sa=board;boardid=', $board['id'], '">', $txt['mboards_modify'], '</a></span></span>', empty($board['move_links']) ? '<br style="clear: right;" />' : '';]]></add>
-	</operation>
-	<operation>
-		<search position="replace"><![CDATA[<li class="windowbg', $alternate ? '' : '2', '" style="padding-', $context['right_to_left'] ? 'right' : 'left', ': ', 5 + 30 * $board['move_links'][0]['child_level'], 'px;">';]]></search>
-		<add><![CDATA[<li style="padding-', $context['right_to_left'] ? 'right' : 'left', ': ', 5 + 30 * $board['move_links'][0]['child_level'], 'px;">';]]></add>
+		<search position="replace"><![CDATA[<a href="', $scripturl, '?action=admin;area=manageboards;sa=board;boardid=', $board['id'], '" class="button">', $txt['mboards_modify'], '</a>
+						</span><br style="clear: right;">
+					</li>';]]></search>
+		<add><![CDATA[<a href="', $scripturl, '?action=admin;area=manageboards;sa=board;boardid=', $board['id'], '" class="button">', $txt['mboards_modify'], '</a>
+						</span><br style="clear: right;">';]]></add>
 	</operation>
 	<operation>
 		<search position="after"><![CDATA[		}
 
 		// Button to add a new board.]]></search>
 		<add><![CDATA[
-			$alternate = !$alternate;
 			$depth = $board['child_level'];
 			$first = false;
 		}
@@ -278,7 +271,7 @@ function BoardOrder()
 }
 
 // Template for editing/adding a category on the forum.]]></search>
-		<add><![CDATA[
+		<add><![CDATA[</div>
 	<script>
 		// Start by creating proper ids and ul childs for use
 		setBoardIds();
@@ -303,12 +296,8 @@ function BoardOrder()
 </file>
 <file name="$themedir/css/index.css">
 	<operation>
-		<search position="replace"><![CDATA[}
-.windowbg2
-{]]></search>
-		<add><![CDATA[}
-.ui-state-highlight, .windowbg2
-{]]></add>
+		<search position="after"><![CDATA[.windowbg:nth-of-type(odd) {]]></search>
+		<add><![CDATA[.ui-state-highlight, ]]></add>
 	</operation>
 </file>
 </modification>
