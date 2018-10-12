@@ -1,11 +1,13 @@
 [hr]
 [center][color=red][size=16pt][b]DRAG AND DROP BOARD MANAGEMENT v1.0[/b][/size][/color]
-[url=http://www.simplemachines.org/community/index.php?action=profile;u=253913][b]By Dougiefresh[/b][/url] -> [url=http://custom.simplemachines.org/mods/index.php?mod=4067]Link to Mod[/url]
+[url=http://www.simplemachines.org/community/index.php?action=profile;u=253913][b]By Dougiefresh[/b][/url] -> [url=http://custom.simplemachines.org/mods/index.php?mod=4083]Link to Mod[/url]
 [/center]
 [hr]
 
 [color=blue][b][size=12pt][u]Introduction[/u][/size][/b][/color]
-This mod adds the ability to drag and drop individual boards to new positions either within the category it resides, or within a new category.  This mod is based on the Manage Boards UI of the [url=http://www.elkarte.net]ElkArte[/url] fork of SMF, which has this functionality built in.
+This mod adds the ability to drag and drop individual boards to new positions either within the category it resides, or within a new category.  
+
+This mod is based on the Manage Boards UI of the [url=http://www.elkarte.net]ElkArte[/url] fork of SMF (which is licensed under a [url=http://opensource.org/licenses/BSD-3-Clause]3-clause BSD License[/url]), which has this functionality built in.
 
 [color=blue][b][size=12pt][u]Related Discussion/Development Threads[/u][/size][/b][/color]
 o Discussion: [url=http://www.simplemachines.org/community/index.php?topic=510051.0]Drag and drop board management[/url]
@@ -15,7 +17,7 @@ o Development: [url=http://www.simplemachines.org/community/index.php?topic=5434
 This mod was tested on SMF 2.0.11, but should work on SMF 2.0 and up.  SMF 1.x is not and will not be supported.
 
 [color=blue][b][size=12pt][u]Changelog[/u][/size][/b][/color]
-No changelog available at this time.
+The changelog has been removed and can be seen at [url=http://www.xptsp.com/board/index.php?topic=657.msg966#msg966]XPtsp.com[/url].
 
 [color=blue][b][size=12pt][u]Special Thanks Goes Out To:[/u][/size][/b][/color]
 o [url=http://www.simplemachines.org/community/index.php?action=profile;u=183330]Antes[/url]

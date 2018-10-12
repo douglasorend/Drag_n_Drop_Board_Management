@@ -206,7 +206,8 @@
  * Sets the id of all 'li' elements to cat#,board#,childof# for use in the
  * $_POST back to the xmlcontroller
  */
-function setBoardIds() {
+function setBoardIds() 
+{
 	// For each category of board
 	$("[id^=category_]").each(function() {
 		var cat = $(this).attr('id').split('category_'),

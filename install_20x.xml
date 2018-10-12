@@ -244,6 +244,10 @@ function BoardOrder()
 		<add><![CDATA[<span class="modify_boards"><a href="', $scripturl, '?action=admin;area=manageboards;sa=board;boardid=', $board['id'], '">', $txt['mboards_modify'], '</a></span></span>', empty($board['move_links']) ? '<br style="clear: right;" />' : '';]]></add>
 	</operation>
 	<operation>
+		<search position="replace"><![CDATA[<li class="windowbg', $alternate ? '' : '2', '" style="padding-', $context['right_to_left'] ? 'right' : 'left', ': ', 5 + 30 * $board['move_links'][0]['child_level'], 'px;">';]]></search>
+		<add><![CDATA[<li style="padding-', $context['right_to_left'] ? 'right' : 'left', ': ', 5 + 30 * $board['move_links'][0]['child_level'], 'px;">';]]></add>
+	</operation>
+	<operation>
 		<search position="after"><![CDATA[		}
 
 		// Button to add a new board.]]></search>
@@ -295,6 +299,16 @@ function BoardOrder()
 			setorder: "inorder"
 		});
 	</script>]]></add>
+	</operation>
+</file>
+<file name="$themedir/css/index.css">
+	<operation>
+		<search position="replace"><![CDATA[}
+.windowbg2
+{]]></search>
+		<add><![CDATA[}
+.ui-state-highlight, .windowbg2
+{]]></add>
 	</operation>
 </file>
 </modification>
