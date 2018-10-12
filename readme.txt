@@ -17,6 +17,9 @@ This mod was tested on SMF 2.0.11, but should work on SMF 2.0 and up.  SMF 1.x i
 [color=blue][b][size=12pt][u]Changelog[/u][/size][/b][/color]
 No changelog available at this time.
 
+[color=blue][b][size=12pt][u]Special Thanks Goes Out To:[/u][/size][/b][/color]
+o [url=http://www.simplemachines.org/community/index.php?action=profile;u=183330]Antes[/url]
+
 [color=blue][b][size=12pt][u]License[/u][/size][/b][/color]
 Copyright (c) 2016, Douglas Orend
 All rights reserved.

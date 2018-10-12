@@ -2,8 +2,8 @@
 * drag_drop_boards.js                                                             *
 ***********************************************************************************
 * This JS code was copied & modified from the ElkArte forum software, which is    *
-* licensed under the 2-clause BSD License, which can be found here:               *
-*	http://opensource.org/licenses/BSD-2-Clause                                   *
+* licensed under the 3-clause BSD License, which can be found here:               *
+*	http://opensource.org/licenses/BSD-3-Clause                                   *
 ***********************************************************************************
 * This program is distributed in the hope that it is and will be useful, but      *
 * WITHOUT ANY WARRANTIES; without even any implied warranty of MERCHANTABILITY    *
@@ -47,7 +47,6 @@
 			ajax_errorbox = $("<div id='errorContainer'><div/>").appendTo('body');
 
 		// Prepare the infobar and errorbox divs to confirm valid responses or show an error
-		$(ajax_infobar).css({'position': 'fixed', 'top': '0', 'left': '0', 'width': '100%', 'z-index': '100'});
 		$("body").append(ajax_infobar);
 		$(ajax_infobar).slideUp();
 
@@ -87,7 +86,7 @@
 
 				// Next to overcome an issue where page scrolling does not work, we add the new agnostic helper
 				// element to the body, and hide it
-				$('body').append('<div id="clone" class="' + oSettings.placeholder + '">' + $helper.html() + '</div>');
+				$('body').append('<div id="clone" class="windowbg2 ' + oSettings.placeholder + '">' + $helper.html() + '</div>');
 				$clone = $('#clone');
 				$clone.hide();
 
@@ -179,7 +178,7 @@
 					else if ($(data).find("smf").length !== 0)
 					{
 						// Valid responses get the unobtrusive slider
-						$(ajax_infobar).attr('class', 'infobox');
+						$(ajax_infobar).attr('id', 'ajax_in_progress');
 						$(ajax_infobar).html($(data).find('smf > orders > order').text()).slideDown('fast');
 						setTimeout(function() {
 							$(ajax_infobar).slideUp();
@@ -190,7 +189,11 @@
 						// Something "other" happened ...
 						$('#errorContainer').append('<p id="errorContent"></p>');
 						$('#errorContent').html(oSettings.error + ' : ' + textStatus);
-						$('#errorContent').dialog({autoOpen: true, title: oSettings.title, modal: true});
+						$('#errorContent').dialog({
+							autoOpen: true, 
+							title: oSettings.title, 
+							modal: true
+						});
 					}
 				});
 			}

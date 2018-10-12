@@ -44,6 +44,9 @@ function BoardOrder()
 {
 	global $context, $txt, $boards, $cat_tree, $sourcedir;
 
+	// Make sure we have proper permission to make these changes:
+	isAllowedTo('manage_boards');
+
 	// Start off clean
 	$context['xml_data'] = array();
 	$errors = array();

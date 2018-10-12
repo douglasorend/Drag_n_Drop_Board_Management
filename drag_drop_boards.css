@@ -12,53 +12,67 @@
 
 /* Styles for the manage boards section.
 ------------------------------------------------- */
-#manage_boards .content {
-	margin: -6px 0 12px 0;
-	padding: 6px 8px 16px 8px;
+#manage_boards .content
+{
+	margin: 0;
+	padding: 6px 8px 12px 8px;
 	overflow: auto;
 }
-#manage_boards ul {
-	margin: 0;
+#manage_boards ul
+{
+	max-height: none;
+	margin: 0 -4px 2px;
 }
-#manage_boards ul:nth-child(n+2) {
-	min-height: 12px;
+#manage_boards ul:nth-child(n+2)
+{
+/*	min-height: 12px; */
 	padding-left: 30px;
 }
-#manage_boards li {
+#manage_boards li
+{
 	list-style: none;
 	margin: 0;
 	padding-top: 12px;
 	border: none;
 }
-#manage_boards ul:nth-child(n+2) li .floatright {
-	overflow: none;
+#manage_boards ul:nth-child(n+2) li .floatright
+{
 	margin: 0 -3px;
 }
-#manage_boards li img {
+#manage_boards li img
+{
 	vertical-align: middle;
 	padding: 0 6px 3px 6px;
 }
-#manage_boards li .floatleft {
+#manage_boards li .floatleft
+{
 	font-weight: bold;
 	padding: 0 6px;
 	font-size: 1.071em;
 	cursor: move;
 	width: 60%;
 }
-#manage_boards li .floatleft:before {
+#manage_boards li .floatleft:before
+{
 	font-family: "Segoe UI Symbol", "DejaVu Sans", "GNU Unifont";
 	font-size: 1.286em;
 	content: "\21f3";
-	padding-right: 5px;
 	float: left;
 	margin-top: -1px;
 }
-#manage_boards span.modify_boards a {
+#manage_boards .button_submit
+{
+	margin-top: 6px;
+}
+#manage_boards .modify_boards
+{
+	padding: 0;
+}
+#manage_boards .button_submit, #manage_boards span.modify_boards a
+{
 	border-radius: 3px;
 	padding: 3px 6px;
 	font-size: 1em;
-}
-#manage_boards span.modify_boards a, button {
 	box-sizing: border-box;
 	outline: none !important;
 	border: 1px solid #bbb;
@@ -66,10 +80,16 @@
 	border-radius: 3px;
 	box-shadow: 0 2px 5px rgba(0,0,0,0.05) inset;
 }
-.ui-state-highlight {
+#ajax_in_progress
+{
+	font-size: 1.286em;
+}
+
+/* Styles for the JQuery drag/drop
+------------------------------------------------- */
+.ui-state-highlight
+{
 	border: 1px dashed green;
 	height: 25px;
 	cursor: move;
-	color: #000;
-	background-color: #f0f4f7;
 }
