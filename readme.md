@@ -17,7 +17,7 @@ o Development: [url=http://www.simplemachines.org/community/index.php?topic=5434
 This mod was tested on SMF 2.0.11 and SMF 2.1 Beta 3, but should work on SMF 2.0 and up.  SMF 2.1 Beta 2 and SMF 1.x is not and will not be supported.
 
 [color=blue][b][size=12pt][u]Changelog[/u][/size][/b][/color]
-The changelog can be viewed at [url=http://www.xptsp.com/board/free-modifications/drag-and-drop-board-management/]XPtsp.com[/url].
+The changelog has been removed and can be seen at [url=http://www.xptsp.com/board/index.php?topic=657.msg966#msg966]XPtsp.com[/url].
 
 [color=blue][b][size=12pt][u]Special Thanks Goes Out To:[/u][/size][/b][/color]
 o [url=http://www.simplemachines.org/community/index.php?action=profile;u=183330]Antes[/url]
