@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+<id>Dougiefresh:DDBM</id>
+<name>Drag & Drop Board Management</name>
+<version>1.7/version>
+
+<file name="$languagedir/Admin.spanish_latin.php" error="Skip">
+	<operation>
+		<search position="end" />
+		<add><![CDATA[
+$txt['admin_order_title'] = 'Error de pedido';
+$txt['admin_order_error'] = 'Se produjo un error desconocido al procesar su solicitud';
+]]></add>
+	</operation>
+</file>
+<file name="$languagedir/Admin.spanish_latin-utf8.php" error="Skip">
+	<operation>
+		<search position="end" />
+		<add><![CDATA[
+$txt['admin_order_title'] = 'Error de pedido';
+$txt['admin_order_error'] = 'Se produjo un error desconocido al procesar su solicitud';
+]]></add>
+	</operation>
+</file>
+<file name="$languagedir/ManageBoards.spanish_latin.php" error"Skip">
+	<operation>
+		<search position="replace"><![CDATA[Para crear un nuevo foro, haz <i>clic</i> en el boton Nuevo Foro.]]></search>
+		<add><![CDATA[<br />Para mover un foro, puede arrastrarlo y soltarlo en su nueva ubicaci&oacute;n en la lista (a trav&eacute;s de categor&iacute;as y sub categorias de ubicaciones))]]></add>
+	</operation>
+</file>
+<file name="$languagedir/ManageBoards.spanish_latin-utf8.php" error"Skip">
+	<operation>
+		<search position="replace"><![CDATA[Para crear un nuevo foro, haz <i>clic</i> en el boton Nuevo Foro.]]></search>
+		<add><![CDATA[<br />Para mover un foro, puede arrastrarlo y soltarlo en su nueva ubicación en la lista (a través de categorías y sub categorias de ubicaciones))]]></add>
+	</operation>
+</file>
+</modification>
