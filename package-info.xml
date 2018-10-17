@@ -5,12 +5,13 @@
 	<id>Dougiefresh:DDBM</id>
 	<name>Drag & Drop Board Management</name>
 	<type>modification</type>
-	<version>1.7/version>
+	<version>1.8</version>
 
 	<install for="2.0 - 2.0.99">
 		<code>add_remove_hooks.php</code>
 		<readme parsebbc="true">readme.txt</readme>
 		<modification>install_20x.xml</modification>
+		<modification>language_brazilian_portuguese.xml</modification>
 		<modification>language_english.xml</modification>
 		<modification>language_spanish_latin.xml</modification>
 		<require-file name="Subs-DragDropBoards.php" destination="$sourcedir" />
@@ -20,6 +21,7 @@
 	<uninstall for="2.0 - 2.0.99">
 		<code>add_remove_hooks.php</code>
 		<modification reverse="true">install_20x.xml</modification>
+		<modification reverse="true">language_brazilian_portuguese.xml</modification>
 		<modification reverse="true">language_english.xml</modification>
 		<modification reverse="true">language_spanish_latin.xml</modification>
 		<remove-file name="$sourcedir/Subs-DragDropBoards.php" />
@@ -31,6 +33,7 @@
 		<code>add_remove_hooks.php</code>
 		<readme parsebbc="true">readme.txt</readme>
 		<modification>install_21x.xml</modification>
+		<modification>language_brazilian_portuguese.xml</modification>
 		<modification>language_english.xml</modification>
 		<modification>language_spanish_latin.xml</modification>
 		<require-file name="Subs-DragDropBoards.php" destination="$sourcedir" />
@@ -40,6 +43,7 @@
 	<uninstall for="2.1 Beta 2>
 		<code>add_remove_hooks.php</code>
 		<modification reverse="true">install_21x.xml</modification>
+		<modification reverse="true">language_brazilian_portuguese.xml</modification>
 		<modification reverse="true">language_english.xml</modification>
 		<modification reverse="true">language_spanish_latin.xml</modification>
 		<remove-file name="$sourcedir/Subs-DragDropBoards.php" />

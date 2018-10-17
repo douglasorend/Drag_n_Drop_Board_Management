@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+<id>Dougiefresh:DDBM</id>
+<name>Drag & Drop Board Management</name>
+<version>1.8</version>
+
+<file name="$languagedir/Admin.portuguese_brazilian.php" error="skip">
+	<operation>
+		<search position="end" />
+		<add><![CDATA[$txt['admin_order_title'] = 'Erro de solicita&ccedil;&atilde;o';
+$txt['admin_order_error'] = 'Houve um erro ao completar a a&ccedil;&atilde;o solicitada';
+]]></add>
+	</operation>
+</file>
+<file name="$languagedir/Admin.portuguese_brazilian-utf8.php" error="skip">
+	<operation>
+		<search position="end" />
+		<add><![CDATA[
+$txt['admin_order_title'] = 'Erro de solicitação';
+$txt['admin_order_error'] = 'Houve um erro ao completar a ação solicitada';
+]]></add>
+	</operation>
+</file>
+<file name="$languagedir/ManageBoards.portuguese_brazilian.php" error"skip">
+	<operation>
+		<search position="replace"><![CDATA[Para criar um novo forum,<i>click</i> no bot&atilde;o Novo Forum.]]></search>
+		<add><![CDATA[<br />Para mover um forum, pode-se arrasta-lo e solta-lo em sua nova posi&ccedil;&atilde;o  na lista (atrav&eacute;s de categorias e sub categorias))]]></add>
+	</operation>
+</file>
+<file name="$languagedir/ManageBoards.portuguese_brazilian-utf8.php" error"skip">
+	<operation>
+		<search position="replace"><![CDATA[Para criar um novo forum,<i>click</i> no botão Novo Forum.]]></search>
+		<add><![CDATA[<br />Para mover um forum, pode-se arrasta-lo e solta-lo em sua nova posição  na lista (através de categorias e sub categorias))]]></add>
+	</operation>
+</file>
+</modification>
